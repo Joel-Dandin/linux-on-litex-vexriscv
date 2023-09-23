@@ -363,8 +363,18 @@ class MNT_RKX7(Board):
 
 class STLV7325(Board):
     def __init__(self):
-        from litex_boards.targets import aliexpress_stlv7325
-        Board.__init__(self, aliexpress_stlv7325.BaseSoC, soc_capabilities={
+        from litex_boards.targets import sitlinv_stlv7325_v1
+        Board.__init__(self, sitlinv_stlv7325_v1.BaseSoC, soc_capabilities={
+            # Communication
+            "serial",
+            # Storage
+            "sdcard",
+        })
+
+class STLV7325_v2(Board):
+    def __init__(self):
+        from litex_boards.targets import sitlinv_stlv7325_v2
+        Board.__init__(self, sitlinv_stlv7325_v2.BaseSoC, soc_capabilities={
             # Communication
             "serial",
             # Storage
@@ -718,6 +728,34 @@ class TitaniumTi60F225DevKit(Board):
         })
 
 #---------------------------------------------------------------------------------------------------
+# Gowin Boards
+#---------------------------------------------------------------------------------------------------
+
+# Sipeed Tang Nano 20K support ---------------------------------------------------------------------
+
+class Sipeed_tang_nano_20k(Board):
+    soc_kwargs = {"l2_size" : 2048} # Use Wishbone and L2 for memory accesses.
+    def __init__(self):
+        from litex_boards.targets import sipeed_tang_nano_20k
+        Board.__init__(self, sipeed_tang_nano_20k.BaseSoC, soc_capabilities={
+            # Communication
+            "serial",
+            "sdcard",
+        })
+
+# Sipeed Tang Primer 20K support -------------------------------------------------------------------
+
+class Sipeed_tang_primer_20k(Board):
+    soc_kwargs = {"l2_size" : 512} # Use Wishbone and L2 for memory accesses.
+    def __init__(self):
+        from litex_boards.targets import sipeed_tang_primer_20k
+        Board.__init__(self, sipeed_tang_primer_20k.BaseSoC, soc_capabilities={
+            # Communication
+            "serial",
+            "spisdcard",
+        })
+
+#---------------------------------------------------------------------------------------------------
 # Build
 #---------------------------------------------------------------------------------------------------
 
@@ -746,6 +784,7 @@ supported_boards = {
     "sds1104xe"                   : SDS1104XE,
     "mnt_rkx7"                    : MNT_RKX7,
     "stlv7325"                    : STLV7325,
+    "stlv7325_v2"                 : STLV7325_v2,
     "decklink_quad_hdmi_recorder" : DecklinkQuadHDMIRecorder,
 
     # Lattice
@@ -775,6 +814,10 @@ supported_boards = {
     # Efinix
     "trion_t120_bga576_dev_kit"   : TrionT120BGA576DevKit,
     "titanium_ti60_f225_dev_kit"  : TitaniumTi60F225DevKit,
+
+    # Gowin
+    "sipeed_tang_nano_20k"        : Sipeed_tang_nano_20k,
+    "sipeed_tang_primer_20k"      : Sipeed_tang_primer_20k,
     }
 
 def main():
